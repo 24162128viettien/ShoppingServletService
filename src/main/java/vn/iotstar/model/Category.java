@@ -29,10 +29,8 @@ public class Category implements Serializable {
     @Column(name = "icons", columnDefinition = "NVARCHAR(255) NULL")
     private String icon;
  
-    // Mới thêm: 1 = Hoạt động, 0 = Khóa
-    // hibernate.hbm2ddl.auto=update sẽ tự ALTER TABLE thêm cột này, không mất dữ liệu cũ
     @Column(name = "status")
-    private int status = 1; // Mặc định Hoạt động khi tạo mới
+    private int status = 1; 
  
     @OneToMany(mappedBy = "category")
     private List<Video> videos;

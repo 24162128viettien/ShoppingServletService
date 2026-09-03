@@ -27,7 +27,7 @@ public class CategoryAddController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Category category = new Category();
-        category.setStatus(1); // Mặc định Hoạt động nếu form không gửi status
+        category.setStatus(1); 
         try {
             resp.setContentType("text/html");
             resp.setCharacterEncoding("UTF-8");
@@ -40,7 +40,6 @@ public class CategoryAddController extends HttpServlet {
                     if (item.getFieldName().equals("name")) {
                         category.setName(item.getString(StandardCharsets.UTF_8));
                     } else if (item.getFieldName().equals("status")) {
-                        // Mới thêm: đọc giá trị radio Hoạt động/Khóa
                         category.setStatus(Integer.parseInt(item.getString(StandardCharsets.UTF_8)));
                     }
                 } else {

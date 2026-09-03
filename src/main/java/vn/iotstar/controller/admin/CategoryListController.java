@@ -13,11 +13,10 @@ import vn.iotstar.service.impl.CategoryServiceImpl;
 @WebServlet(urlPatterns = { "/admin/category/list" })
 public class CategoryListController extends HttpServlet {
     CategoryService cateService = new CategoryServiceImpl();
-    private static final int PAGE_SIZE = 5; // Số danh mục hiển thị mỗi trang
+    private static final int PAGE_SIZE = 5;
  
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // Mới thêm: đọc số trang từ URL (?page=0, ?page=1...), mặc định trang 0
         int page = 0;
         String pageParam = req.getParameter("page");
         if (pageParam != null) {

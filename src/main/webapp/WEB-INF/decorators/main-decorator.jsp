@@ -6,7 +6,6 @@
     <meta charset="UTF-8">
     <title><sitemesh:write property='title'/></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Giữ lại thẻ <head> gốc của từng trang (css/js riêng nếu có) -->
     <sitemesh:write property='head'/>
 </head>
 <body>
@@ -42,7 +41,6 @@
     </nav>
 
     <div class="container mt-4 mb-5">
-        <!-- Đây là nội dung riêng của từng trang -->
         <sitemesh:write property='body'/>
     </div>
 

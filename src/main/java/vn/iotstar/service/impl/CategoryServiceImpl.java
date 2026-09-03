@@ -16,10 +16,8 @@ public class CategoryServiceImpl implements CategoryService {
     public void edit(Category newCategory) {
         Category oldCategory = categoryDao.get(newCategory.getId());
         oldCategory.setName(newCategory.getName());
-        oldCategory.setStatus(newCategory.getStatus()); // Bổ sung: cập nhật status khi sửa
+        oldCategory.setStatus(newCategory.getStatus()); 
         if (newCategory.getIcon() != null) {
-            // Đã sửa: dùng đúng Constant.DIR sẵn có, khớp với cách CategoryAddController lưu file
-            // (Constant.DIR + "/category/" + fileName)
             String oldIcon = oldCategory.getIcon();
             if (oldIcon != null) {
                 File file = new File(Constant.DIR + "/" + oldIcon);
@@ -52,7 +50,6 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryDao.search(catename);
     }
  
-    // Mới thêm: phân trang + đếm tổng số bản ghi
     @Override
     public List<Category> getAll(int page, int pagesize) {
         return categoryDao.getAll(page, pagesize);

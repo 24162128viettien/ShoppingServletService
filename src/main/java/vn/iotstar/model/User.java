@@ -38,12 +38,11 @@ public class User implements Serializable {
     @Column(name = "roleid")
     private int roleid = 5;
  
-    // Mới thêm: ảnh đại diện, dùng cho chức năng Profile
     @Column(name = "images", columnDefinition = "NVARCHAR(255) NULL")
     private String images;
  
     @Column(name = "active")
-    private Integer active = 0; // Dùng Integer (không phải int) để tránh lỗi nếu cột NULL ở dữ liệu cũ
+    private Integer active = 0; 
  
     @Column(name = "otp_code", columnDefinition = "NVARCHAR(10) NULL")
     private String otpCode;

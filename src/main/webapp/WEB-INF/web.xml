@@ -5,17 +5,14 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <display-name>Shopping Servlet Service MVC</display-name>
  
-    <!-- Trang mặc định khi khởi chạy ứng dụng -->
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
  
-    <!-- Cấu hình session tracking mode bằng COOKIE -->
     <session-config>
         <tracking-mode>COOKIE</tracking-mode>
     </session-config>
  
-    <!-- Mới thêm: Sitemesh Decorator - áp layout chung cho các trang JSP -->
     <filter>
         <filter-name>sitemesh</filter-name>
         <filter-class>org.sitemesh.config.ConfigurableSiteMeshFilter</filter-class>

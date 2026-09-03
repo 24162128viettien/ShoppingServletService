@@ -56,16 +56,14 @@ public class UserServiceImpl implements UserService {
         user.setFullname(fullname);
         user.setPassword(password);
         user.setPhone(phone);
-        user.setRoleId(5); // Mặc định tài khoản thường
-        user.setActive(1); // Tạm thời kích hoạt sẵn (chưa nối luồng OTP kích hoạt trong bước này)
+        user.setRoleId(5); 
+        user.setActive(1); 
         userDao.insert(user);
         return true;
     }
  
     @Override
     public void updateProfile(User newInfo) {
-        // Lấy lại bản ghi gốc từ DB, chỉ cho phép sửa fullname/phone/images
-        // -> tránh trường hợp form bị chỉnh sửa để đổi username/roleid/password trái phép
         User oldUser = userDao.getById(newInfo.getId());
         if (oldUser == null) {
             return;
@@ -74,7 +72,6 @@ public class UserServiceImpl implements UserService {
         oldUser.setPhone(newInfo.getPhone());
  
         if (newInfo.getImages() != null && !newInfo.getImages().equals(oldUser.getImages())) {
-            // Xóa ảnh đại diện cũ (nếu có) trước khi lưu ảnh mới
             String oldImage = oldUser.getImages();
             if (oldImage != null) {
                 File file = new File(Constant.DIR + "/" + oldImage);

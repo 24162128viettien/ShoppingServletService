@@ -5,7 +5,6 @@
     <title>Tài khoản của tôi</title>
 </head>
 <body>
-    <!-- Không cần <html>/<head>/<body> đầy đủ với Sitemesh - decorator sẽ tự bọc ngoài -->
     <div class="card shadow p-4" style="max-width: 500px; margin: 0 auto;">
         <h2 class="text-center mb-4 text-primary">Thông tin tài khoản</h2>
 

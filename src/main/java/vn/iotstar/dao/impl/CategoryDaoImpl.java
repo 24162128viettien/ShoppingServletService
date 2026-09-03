@@ -120,7 +120,7 @@ public class CategoryDaoImpl implements CategoryDao {
         EntityManager enma = JPAConfig.getEntityManager();
         try {
             TypedQuery<Category> query = enma.createNamedQuery("Category.findAll", Category.class);
-            query.setFirstResult(page * pagesize); // page bắt đầu từ 0
+            query.setFirstResult(page * pagesize);
             query.setMaxResults(pagesize);
             return query.getResultList();
         } finally {

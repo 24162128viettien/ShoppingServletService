@@ -8,10 +8,8 @@ public interface UserService {
     boolean checkExistUsername(String username);
     boolean checkExistEmail(String email);
  
-    // Khớp với RegisterController.java: service.register(email, username, fullname, password, phone)
     boolean register(String email, String username, String fullname, String password, String phone);
  
-    // Mới thêm cho chức năng Profile
     void updateProfile(User user);
 }
  

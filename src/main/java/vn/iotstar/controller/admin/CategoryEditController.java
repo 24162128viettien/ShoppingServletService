@@ -44,7 +44,6 @@ public class CategoryEditController extends HttpServlet {
                     } else if (item.getFieldName().equals("name")) {
                         category.setName(item.getString(StandardCharsets.UTF_8));
                     } else if (item.getFieldName().equals("status")) {
-                        // Mới thêm: đọc giá trị radio Hoạt động/Khóa
                         category.setStatus(Integer.parseInt(item.getString(StandardCharsets.UTF_8)));
                     }
                 } else {
@@ -58,7 +57,7 @@ public class CategoryEditController extends HttpServlet {
                             item.write(file.toPath());
                             category.setIcon("category/" + fileName);
                         } else {
-                            category.setIcon(null); // Không upload ảnh mới -> service sẽ giữ ảnh cũ
+                            category.setIcon(null); 
                         }
                     }
                 }

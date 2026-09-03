@@ -10,7 +10,6 @@ public interface CategoryDao {
     List<Category> getAll();
     List<Category> search(String keyword);
  
-    // Mới thêm: phân trang + đếm tổng số bản ghi
     List<Category> getAll(int page, int pagesize);
     int count();
 }

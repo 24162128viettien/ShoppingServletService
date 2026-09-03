@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemesh>
-    <!-- Các trang login/register không cần layout chung (đã tự có full HTML) -->
     <mapping path="/login" exclude="true"/>
     <mapping path="/register" exclude="true"/>
  
-    <!-- Đã sửa: không còn tiền tố "/decorators/" vì hệ thống tự thêm sẵn từ WEB-INF/decorators/ -->
     <mapping path="/*" decorator="/main-decorator.jsp"/>
 </sitemesh>

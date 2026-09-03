@@ -5,7 +5,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Đăng ký tài khoản</title>
-    <!-- Thêm Bootstrap để form hiển thị đẹp và trực quan hơn -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light d-flex justify-content-center align-items-center vh-100">
@@ -14,7 +13,6 @@
         <form action="${pageContext.request.contextPath}/register" method="post">
             <h2 class="text-center mb-4 text-primary">Tạo tài khoản mới</h2>
             
-            <!-- Hiển thị thông báo lỗi nếu có (ví dụ: Tài khoản hoặc Email đã tồn tại) -->
             <c:if test="${alert != null}">
                 <div class="alert alert-danger" role="alert">
                     ${alert}

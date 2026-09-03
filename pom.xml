@@ -9,7 +9,6 @@
     <packaging>war</packaging>
 
     <dependencies>
-        <!-- Thư viện Servlet API cho Tomcat 10 -->
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
@@ -17,28 +16,24 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Thư viện JSTL API chuẩn Jakarta -->
         <dependency>
             <groupId>jakarta.servlet.jsp.jstl</groupId>
             <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
             <version>3.0.0</version>
         </dependency>
 
-        <!-- Thư viện thực thi JSTL chuẩn Jakarta -->
         <dependency>
             <groupId>org.glassfish.web</groupId>
             <artifactId>jakarta.servlet.jsp.jstl</artifactId>
             <version>3.0.1</version>
         </dependency>
 
-        <!-- Thư viện SQL Server JDBC driver -->
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
             <version>9.4.0.jre8</version>
         </dependency>
 
-        <!-- Thư viện hỗ trợ Upload file (dùng cho ảnh danh mục) -->
         <dependency>
 		    <groupId>org.apache.commons</groupId>
 		    <artifactId>commons-fileupload2-jakarta-servlet6</artifactId>

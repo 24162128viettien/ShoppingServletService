@@ -11,7 +11,7 @@ import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
  
 @Entity
-@Table(name = "videos") // Bảng chưa tồn tại -> hibernate.hbm2ddl.auto=update sẽ tự tạo
+@Table(name = "videos") 
 @NamedQuery(name = "Video.findAll", query = "SELECT v FROM Video v")
 public class Video implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -35,7 +35,6 @@ public class Video implements Serializable {
     @Column(name = "views")
     private int views;
  
-    // Quan hệ nhiều-1 với Category, khóa ngoại trỏ về cate_id
     @ManyToOne
     @JoinColumn(name = "cate_id")
     private Category category;
