@@ -1,105 +1,145 @@
 package vn.iotstar.model;
-
-import java.sql.Date;
-
-public class User {
+ 
+import java.io.Serializable;
+import java.sql.Timestamp;
+ 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+ 
+@Entity
+@Table(name = "users")
+public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
+ 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
-    private String email;
+ 
+    @Column(name = "username", columnDefinition = "NVARCHAR(50) NOT NULL")
     private String username;
-    private String fullname;
+ 
+    @Column(name = "password", columnDefinition = "NVARCHAR(100) NOT NULL")
     private String password;
+ 
+    @Column(name = "email", columnDefinition = "NVARCHAR(100) NOT NULL")
+    private String email;
+ 
+    @Column(name = "fullname", columnDefinition = "NVARCHAR(100) NULL")
+    private String fullname;
+ 
+    @Column(name = "phone", columnDefinition = "NVARCHAR(20) NULL")
     private String phone;
-    private int roleid;
-    private Date createdDate;
+ 
+    @Column(name = "roleid")
+    private int roleid = 5;
+ 
+    // Mới thêm: ảnh đại diện, dùng cho chức năng Profile
+    @Column(name = "images", columnDefinition = "NVARCHAR(255) NULL")
     private String images;
-
+ 
+    @Column(name = "active")
+    private Integer active = 0; // Dùng Integer (không phải int) để tránh lỗi nếu cột NULL ở dữ liệu cũ
+ 
+    @Column(name = "otp_code", columnDefinition = "NVARCHAR(10) NULL")
+    private String otpCode;
+ 
+    @Column(name = "otp_expiry")
+    private Timestamp otpExpiry;
+ 
     public User() {
     }
-
-    public User(String email, String username, String fullname, String password, String phone, int roleid, Date createdDate, String images) {
-        this.email = email;
-        this.username = username;
-        this.fullname = fullname;
-        this.password = password;
-        this.phone = phone;
-        this.roleid = roleid;
-        this.createdDate = createdDate;
-        this.images = images;
-    }
-
+ 
     public int getId() {
         return id;
     }
-
+ 
     public void setId(int id) {
         this.id = id;
     }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
+ 
     public String getUsername() {
         return username;
     }
-
+ 
     public void setUsername(String username) {
         this.username = username;
     }
-
-    public String getFullname() {
-        return fullname;
-    }
-
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
-    }
-
+ 
     public String getPassword() {
         return password;
     }
-
+ 
     public void setPassword(String password) {
         this.password = password;
     }
-
+ 
+    public String getEmail() {
+        return email;
+    }
+ 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+ 
+    public String getFullname() {
+        return fullname;
+    }
+ 
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+ 
     public String getPhone() {
         return phone;
     }
-
+ 
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
+ 
     public int getRoleId() {
         return roleid;
     }
-
+ 
     public void setRoleId(int roleid) {
         this.roleid = roleid;
     }
-
-    public void setRoleid(int roleid) {
-        this.roleid = roleid;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
+ 
     public String getImages() {
         return images;
     }
-
+ 
     public void setImages(String images) {
         this.images = images;
     }
+ 
+    public Integer getActive() {
+        return active;
+    }
+ 
+    public void setActive(Integer active) {
+        this.active = active;
+    }
+ 
+    public String getOtpCode() {
+        return otpCode;
+    }
+ 
+    public void setOtpCode(String otpCode) {
+        this.otpCode = otpCode;
+    }
+ 
+    public Timestamp getOtpExpiry() {
+        return otpExpiry;
+    }
+ 
+    public void setOtpExpiry(Timestamp otpExpiry) {
+        this.otpExpiry = otpExpiry;
+    }
 }
+ 

@@ -5,7 +5,7 @@ import vn.iotstar.dao.CategoryDao;
 import vn.iotstar.dao.impl.CategoryDaoImpl;
 import vn.iotstar.model.Category;
 import vn.iotstar.service.CategoryService;
-import vn.iotstar.util.UploadConstant;
+import vn.iotstar.util.Constant;
 public class CategoryServiceImpl implements CategoryService {
     CategoryDao categoryDao = new CategoryDaoImpl();
     @Override
@@ -17,11 +17,12 @@ public class CategoryServiceImpl implements CategoryService {
         Category oldCategory = categoryDao.get(newCategory.getId());
         oldCategory.setName(newCategory.getName());
         oldCategory.setStatus(newCategory.getStatus()); // Bổ sung: cập nhật status khi sửa
-        if (newCategory.getIcon() != null && !newCategory.getIcon().equals(oldCategory.getIcon())) {
-            // Đã sửa: dùng chung hằng số UploadConstant.DIR, khớp với ImageController
-            String fileName = oldCategory.getIcon();
-            if (fileName != null) {
-                File file = new File(UploadConstant.DIR + "/" + fileName);
+        if (newCategory.getIcon() != null) {
+            // Đã sửa: dùng đúng Constant.DIR sẵn có, khớp với cách CategoryAddController lưu file
+            // (Constant.DIR + "/category/" + fileName)
+            String oldIcon = oldCategory.getIcon();
+            if (oldIcon != null) {
+                File file = new File(Constant.DIR + "/" + oldIcon);
                 if (file.exists()) {
                     file.delete();
                 }
