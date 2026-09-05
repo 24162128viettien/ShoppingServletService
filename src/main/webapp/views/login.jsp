@@ -5,7 +5,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Đăng nhập</title>
-    <!-- Bootstrap giống hệt register.jsp để đồng bộ giao diện -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light d-flex justify-content-center align-items-center vh-100">
@@ -14,7 +13,6 @@
         <form action="${pageContext.request.contextPath}/login" method="post">
             <h2 class="text-center mb-4 text-primary">Đăng Nhập Vào Hệ Thống</h2>
 
-            <!-- Hiển thị thông báo lỗi nếu có -->
             <c:if test="${alert != null}">
                 <div class="alert alert-danger" role="alert">
                     ${alert}
@@ -34,6 +32,10 @@
             <div class="mb-3 form-check">
                 <input type="checkbox" class="form-check-input" name="remember" id="rememberCheck">
                 <label class="form-check-label" for="rememberCheck">Nhớ tôi</label>
+            </div>
+
+            <div class="mb-3 text-end">
+                <a href="${pageContext.request.contextPath}/forgot-password" class="text-decoration-none">Quên mật khẩu?</a>
             </div>
 
             <button type="submit" class="btn btn-primary w-100 mb-3">Đăng nhập</button>

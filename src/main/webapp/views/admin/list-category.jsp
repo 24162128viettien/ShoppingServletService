@@ -9,7 +9,6 @@
 <body>
     <h2>Danh sách danh mục</h2>
     
-    <!-- Nút chuyển sang trang thêm mới -->
     <a href="<c:url value='/admin/category/add'/>">Thêm danh mục mới</a>
     <a href="${pageContext.request.contextPath}/home">← Về Trang chủ</a>
     <br><br>

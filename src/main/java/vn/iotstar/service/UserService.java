@@ -11,21 +11,10 @@ public interface UserService {
     boolean register(String email, String username, String fullname, String password, String phone);
  
     void updateProfile(User user);
+ 
+    boolean verifyOtp(String username, String otp);
+ 
+    String sendResetPasswordOtp(String usernameOrEmail);
+    boolean resetPassword(String username, String otp, String newPassword);
 }
  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

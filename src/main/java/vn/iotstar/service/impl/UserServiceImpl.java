@@ -1,12 +1,15 @@
 package vn.iotstar.service.impl;
  
 import java.io.File;
+import java.sql.Timestamp;
  
 import vn.iotstar.dao.UserDao;
 import vn.iotstar.dao.impl.UserDaoImpl;
 import vn.iotstar.model.User;
 import vn.iotstar.service.UserService;
 import vn.iotstar.util.Constant;
+import vn.iotstar.util.MailUtil;
+import vn.iotstar.util.OtpUtil;
  
 public class UserServiceImpl implements UserService {
     private UserDao userDao = new UserDaoImpl();
@@ -50,6 +53,9 @@ public class UserServiceImpl implements UserService {
         if (userDao.checkExistUsername(username)) {
             return false;
         }
+        String otp = OtpUtil.generateOtp();
+        Timestamp expiry = new Timestamp(System.currentTimeMillis() + 5 * 60 * 1000); 
+ 
         User user = new User();
         user.setEmail(email);
         user.setUsername(username);
@@ -57,8 +63,63 @@ public class UserServiceImpl implements UserService {
         user.setPassword(password);
         user.setPhone(phone);
         user.setRoleId(5); 
-        user.setActive(1); 
+        user.setActive(0); 
+        user.setOtpCode(otp);
+        user.setOtpExpiry(expiry);
         userDao.insert(user);
+ 
+        MailUtil.sendOtpEmail(email, otp, "activate");
+        return true;
+    }
+ 
+    @Override
+    public boolean verifyOtp(String username, String otp) {
+        User user = userDao.get(username);
+        if (user == null || otp == null) {
+            return false;
+        }
+        if (user.getOtpCode() == null || user.getOtpExpiry() == null) {
+            return false; 
+        }
+        if (!user.getOtpCode().equals(otp)) {
+            return false; 
+        }
+        if (user.getOtpExpiry().before(new Timestamp(System.currentTimeMillis()))) {
+            return false; 
+        }
+        userDao.activateAccount(username);
+        return true;
+    }
+ 
+    @Override
+    public String sendResetPasswordOtp(String usernameOrEmail) {
+        User user = userDao.getByUsernameOrEmail(usernameOrEmail);
+        if (user == null) {
+            return null; 
+        }
+        String otp = OtpUtil.generateOtp();
+        Timestamp expiry = new Timestamp(System.currentTimeMillis() + 5 * 60 * 1000); 
+        userDao.saveOtp(user.getUsername(), otp, expiry);
+        MailUtil.sendOtpEmail(user.getEmail(), otp, "reset");
+        return user.getUsername();
+    }
+ 
+    @Override
+    public boolean resetPassword(String username, String otp, String newPassword) {
+        User user = userDao.get(username);
+        if (user == null || otp == null) {
+            return false;
+        }
+        if (user.getOtpCode() == null || user.getOtpExpiry() == null) {
+            return false; 
+        }
+        if (!user.getOtpCode().equals(otp)) {
+            return false; 
+        }
+        if (user.getOtpExpiry().before(new Timestamp(System.currentTimeMillis()))) {
+            return false; 
+        }
+        userDao.updatePassword(username, newPassword); 
         return true;
     }
  
