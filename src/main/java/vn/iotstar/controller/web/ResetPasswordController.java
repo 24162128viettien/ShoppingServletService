@@ -9,8 +9,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
  
+import vn.iotstar.model.User;
 import vn.iotstar.service.UserService;
 import vn.iotstar.service.impl.UserServiceImpl;
+import vn.iotstar.util.ValidationUtil;
  
 @WebServlet(urlPatterns = { "/reset-password" })
 public class ResetPasswordController extends HttpServlet {
@@ -36,6 +38,15 @@ public class ResetPasswordController extends HttpServlet {
         if (newPassword == null || newPassword.isEmpty() || !newPassword.equals(confirmPassword)) {
             req.setAttribute("username", username);
             req.setAttribute("alert", "Mật khẩu xác nhận không khớp.");
+            req.getRequestDispatcher("/views/reset-password.jsp").forward(req, resp);
+            return;
+        }
+ 
+        // Mới thêm: validate độ dài mật khẩu mới theo đúng ràng buộc trên User.password
+        String passwordError = ValidationUtil.validateField(User.class, "password", newPassword);
+        if (passwordError != null) {
+            req.setAttribute("username", username);
+            req.setAttribute("alert", passwordError);
             req.getRequestDispatcher("/views/reset-password.jsp").forward(req, resp);
             return;
         }

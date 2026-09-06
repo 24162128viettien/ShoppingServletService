@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,6 +17,7 @@ import vn.iotstar.model.Category;
 import vn.iotstar.service.CategoryService;
 import vn.iotstar.service.impl.CategoryServiceImpl;
 import vn.iotstar.util.Constant;
+import vn.iotstar.util.ValidationUtil;
 @WebServlet(urlPatterns = { "/admin/category/add" })
 public class CategoryAddController extends HttpServlet {
     CategoryService cateService = new CategoryServiceImpl();
@@ -27,7 +29,6 @@ public class CategoryAddController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Category category = new Category();
-        category.setStatus(1); 
         try {
             resp.setContentType("text/html");
             resp.setCharacterEncoding("UTF-8");
@@ -56,6 +57,16 @@ public class CategoryAddController extends HttpServlet {
                     }
                 }
             }
+ 
+            // Mới thêm: validate bằng Bean Validation trước khi lưu
+            Map<String, String> errors = ValidationUtil.validate(category);
+            if (!errors.isEmpty()) {
+                req.setAttribute("errors", errors);
+                req.setAttribute("category", category);
+                req.getRequestDispatcher("/views/admin/add-category.jsp").forward(req, resp);
+                return;
+            }
+ 
             cateService.insert(category);
             resp.sendRedirect(req.getContextPath() + "/admin/category/list");
         } catch (Exception e) {

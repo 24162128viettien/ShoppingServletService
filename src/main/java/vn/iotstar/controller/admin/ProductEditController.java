@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,6 +20,7 @@ import vn.iotstar.service.ProductService;
 import vn.iotstar.service.impl.CategoryServiceImpl;
 import vn.iotstar.service.impl.ProductServiceImpl;
 import vn.iotstar.util.Constant;
+import vn.iotstar.util.ValidationUtil;
  
 @WebServlet(urlPatterns = { "/admin/product/edit" })
 public class ProductEditController extends HttpServlet {
@@ -79,10 +81,20 @@ public class ProductEditController extends HttpServlet {
                             item.write(file.toPath());
                             product.setImage("product/" + fileName);
                         } else {
-                            product.setImage(null); 
+                            product.setImage(null);
                         }
                     }
                 }
+            }
+ 
+            // Mới thêm: validate bằng Bean Validation trước khi lưu
+            Map<String, String> errors = ValidationUtil.validate(product);
+            if (!errors.isEmpty()) {
+                req.setAttribute("errors", errors);
+                req.setAttribute("product", product);
+                req.setAttribute("cateList", categoryService.getAll());
+                req.getRequestDispatcher("/views/admin/edit-product.jsp").forward(req, resp);
+                return;
             }
  
             productService.edit(product);

@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,6 +17,7 @@ import vn.iotstar.model.Category;
 import vn.iotstar.service.CategoryService;
 import vn.iotstar.service.impl.CategoryServiceImpl;
 import vn.iotstar.util.Constant;
+import vn.iotstar.util.ValidationUtil;
 @WebServlet(urlPatterns = { "/admin/category/edit" })
 public class CategoryEditController extends HttpServlet {
     CategoryService cateService = new CategoryServiceImpl();
@@ -57,11 +59,21 @@ public class CategoryEditController extends HttpServlet {
                             item.write(file.toPath());
                             category.setIcon("category/" + fileName);
                         } else {
-                            category.setIcon(null); 
+                            category.setIcon(null);
                         }
                     }
                 }
             }
+ 
+            // Mới thêm: validate bằng Bean Validation trước khi lưu
+            Map<String, String> errors = ValidationUtil.validate(category);
+            if (!errors.isEmpty()) {
+                req.setAttribute("errors", errors);
+                req.setAttribute("category", category);
+                req.getRequestDispatcher("/views/admin/edit-category.jsp").forward(req, resp);
+                return;
+            }
+ 
             cateService.edit(category);
             resp.sendRedirect(req.getContextPath() + "/admin/category/list");
         } catch (Exception e) {

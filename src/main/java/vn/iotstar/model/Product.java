@@ -12,6 +12,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
  
 @Entity
 @Table(name = "products")
@@ -25,9 +28,11 @@ public class Product implements Serializable {
     @Column(name = "product_id")
     private int id;
  
+    @NotBlank(message = "Tên sản phẩm không được để trống")
     @Column(name = "product_name", columnDefinition = "NVARCHAR(200) NOT NULL")
     private String name;
  
+    @Positive(message = "Giá phải lớn hơn 0")
     @Column(name = "price")
     private double price;
  
@@ -37,12 +42,14 @@ public class Product implements Serializable {
     @Column(name = "image", columnDefinition = "NVARCHAR(255) NULL")
     private String image;
  
+    @Min(value = 0, message = "Số lượng không được âm")
     @Column(name = "quantity")
     private int quantity;
  
     @Column(name = "created_date")
     private Timestamp createdDate;
  
+    // Quan hệ nhiều-1 với Category (khóa ngoại cate_id)
     @ManyToOne
     @JoinColumn(name = "cate_id")
     private Category category;

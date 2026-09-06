@@ -13,6 +13,7 @@
             <div class="mb-3">
                 <label class="form-label">Tên sản phẩm</label>
                 <input type="text" name="name" class="form-control" value="${product.name}" required>
+                <c:if test="${errors.name != null}"><div class="text-danger small">${errors.name}</div></c:if>
             </div>
             <div class="mb-3">
                 <label class="form-label">Danh mục</label>
@@ -25,10 +26,12 @@
             <div class="mb-3">
                 <label class="form-label">Giá</label>
                 <input type="number" step="0.01" name="price" class="form-control" value="${product.price}" required>
+                <c:if test="${errors.price != null}"><div class="text-danger small">${errors.price}</div></c:if>
             </div>
             <div class="mb-3">
                 <label class="form-label">Số lượng</label>
                 <input type="number" name="quantity" class="form-control" value="${product.quantity}" required>
+                <c:if test="${errors.quantity != null}"><div class="text-danger small">${errors.quantity}</div></c:if>
             </div>
             <div class="mb-3">
                 <label class="form-label">Mô tả</label>

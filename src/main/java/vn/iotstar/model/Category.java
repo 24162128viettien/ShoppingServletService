@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
  
 @Entity
 @Table(name = "category")
@@ -23,14 +24,17 @@ public class Category implements Serializable {
     @Column(name = "cate_id")
     private int id;
  
+    @NotBlank(message = "Tên danh mục không được để trống")
     @Column(name = "cate_name", columnDefinition = "NVARCHAR(100) NOT NULL")
     private String name;
  
     @Column(name = "icons", columnDefinition = "NVARCHAR(255) NULL")
     private String icon;
  
+    // Mới thêm: 1 = Hoạt động, 0 = Khóa
+    // hibernate.hbm2ddl.auto=update sẽ tự ALTER TABLE thêm cột này, không mất dữ liệu cũ
     @Column(name = "status")
-    private int status = 1; 
+    private int status = 1; // Mặc định Hoạt động khi tạo mới
  
     @OneToMany(mappedBy = "category")
     private List<Video> videos;
